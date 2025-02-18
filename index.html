@@ -1,70 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Test AAC</title>
-    <link rel="stylesheet" type="text/css" href="test_style.css" media="all">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Call Example</title>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('https://flapi-on-k8s-dev.protect.lab.ppops.net/public/metrics-test-service/api/v1.0/cookies/test');
+                const data = await response.json();
+                const token = JSON.stringify(data).substring(0, 20);
+                document.querySelector('.cookies.application_token').textContent = token;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
 
+        window.onload = fetchData;
+    </script>
 </head>
 <body>
-<div class="saml_test_block">
-    <h1>Test AAC</h1>
-    <form id="saml_test_form" method="post" action="/test">
-        <div class="saml_test_form_table">
-            <p><label class="description" for="tenantName">Tenant URL name: </label>
-                <input id="tenantName" name="tenantName" type="text" maxlength="50" value=""/></p>
-            <p><label class="description" for="env">Env: </label>
-                <select id="env" name="env">
-                    <option value="" selected="selected"></option>
-                    <option value="dev">dev</option>
-                    <option value="stg">stg</option>
-                    <option value="us1">us1</option>
-                    <option value="eu2">eu2</option>
-                </select></p>
-            <p><label class="description" for="spId">SpId (optional): </label>
-                <input id="spId" name="spId" type="text" maxlength="20" value=""/></p>
-            <p><label class="description" for="issuer">Issuer: </label>
-                <input id="issuer" name="issuer" type="text" maxlength="255" value="urn:federation:fake"/></p>
-            <p><label class="description" for="username">Username: </label>
-                <input id="username" name="username" type="text" maxlength="100" value="test@example.com"/></p>
-            <p><label class="description" for="stateSizeBytes">State size in bytes: </label>
-                <input id="stateSizeBytes" name="stateSizeBytes" type="text" maxlength="4" value="32"/></p>
-            <p><label class="description" for="loginHint">Azure AD hint: </label>
-                <input class="checkbox_input" id="loginHint" name="loginHint" type="checkbox" value="true"/>
-            </p>
-        </div>
-        <div class="saml_test_form_footer">
-            <input id="loginHintDefault" name="loginHint" type="hidden" value="false"/>
-            <input id="submitForm" type="submit" name="submit" value="Send Request"/></div>
-    </form>
-</div>
-<script type="application/javascript">
-    function isNullOrEmpty(str) {
-        return (!str || /^\s*$/.test(str));
-    }
-
-    function formValid() {
-        if (!isNullOrEmpty(document.getElementById("env").value)) {
-            return true;
-        }
-        alert("please select env");
-        return false;
-    }
-
-    document.getElementById("saml_test_form").onsubmit = function () {
-        if (!formValid()) {
-            return false;
-        }
-        if (document.getElementById("loginHint").checked) {
-            document.getElementById("loginHintDefault").disabled = true;
-        }
-        if (isNullOrEmpty(document.getElementById("spId").value)) {
-            document.getElementById("spId").disabled = true;
-        }
-        document.getElementById("submitForm").disabled = true;
-        return true;
-    }
-</script>
+    <div class="cookies application_token"></div>
 </body>
 </html>
