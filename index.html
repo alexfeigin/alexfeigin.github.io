@@ -1,36 +1,564 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Call Example</title>
-    <script>
-        async function fetchData() {
-            const tokenElement = document.querySelector('.cookies.application_token');
-            try {
-                const response = await fetch('https://flapi-on-k8s-dev.protect.lab.ppops.net/public/metrics-test-service/api/v1.0/cookies/test',
-                    {
-                        method: 'GET',
-                        credentials: 'include',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                );
-                const data = await response.json();
-                if (data.cookies && data.cookies.application_token) {
-                    tokenElement.textContent = data.cookies.application_token.substring(0, 20);
-                } else {
-                    tokenElement.textContent = 'application_token cookie is empty';
-                }
-            } catch (error) {
-                tokenElement.textContent = `Error fetching data: ${error}`;
-            }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clips</title>
+    <style>
+        :root{
+            --bg:#0f0f0f;
+            --panel:#121212;
+            --text:#f1f1f1;
+            --muted:#aaa;
+            --muted2:#7a7a7a;
+            --stroke:#2a2a2a;
+            --chip:#1f1f1f;
+            --shadow: 0 8px 24px rgba(0,0,0,.35);
         }
-        window.onload = fetchData;
-    </script>
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+            background:var(--bg);
+            color:var(--text);
+        }
+        a{color:inherit;text-decoration:none}
+        .app{
+            display:grid;
+            grid-template-columns: 240px 1fr;
+            min-height:100vh;
+        }
+        .sidebar{
+            border-right:1px solid var(--stroke);
+            padding:18px 14px;
+            position:sticky;
+            top:0;
+            height:100vh;
+            background:linear-gradient(180deg, #0f0f0f 0%, #0f0f0f 100%);
+        }
+        .ytmark{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            margin-bottom:18px;
+            padding:6px 8px;
+            border-radius:12px;
+        }
+        .logo{
+            width:26px;height:18px;
+            background:#ff0033;
+            border-radius:6px;
+            position:relative;
+            box-shadow:0 6px 16px rgba(255,0,51,.15);
+        }
+        .logo:after{
+            content:"";
+            position:absolute;
+            left:9px; top:5px;
+            width:0;height:0;
+            border-left:7px solid white;
+            border-top:4px solid transparent;
+            border-bottom:4px solid transparent;
+            opacity:.95;
+        }
+        .yttext{font-weight:700;letter-spacing:.2px}
+
+        .nav{
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+            margin-top:10px;
+        }
+        .nav a{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:10px 10px;
+            border-radius:12px;
+            color:var(--text);
+            opacity:.92;
+        }
+        .nav a:hover{background:rgba(255,255,255,.06)}
+        .dot{
+            width:22px;height:22px;
+            border-radius:8px;
+            background:rgba(255,255,255,.08);
+            border:1px solid rgba(255,255,255,.06);
+        }
+
+        .main{
+            padding:18px 22px 42px;
+        }
+
+        .topbar{
+            display:flex;
+            align-items:center;
+            gap:14px;
+            padding:10px 4px 14px;
+            position:sticky;
+            top:0;
+            background:linear-gradient(180deg, rgba(15,15,15,1) 0%, rgba(15,15,15,.92) 70%, rgba(15,15,15,0) 100%);
+            backdrop-filter: blur(6px);
+            z-index:2;
+        }
+
+        .search{
+            flex:1;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            max-width:720px;
+            margin:0 auto;
+            background:rgba(255,255,255,.06);
+            border:1px solid rgba(255,255,255,.08);
+            border-radius:999px;
+            padding:10px 14px;
+        }
+        .search input{
+            width:100%;
+            border:0;
+            outline:none;
+            background:transparent;
+            color:var(--text);
+            font-size:14px;
+        }
+        .chip{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            padding:8px 12px;
+            border-radius:999px;
+            background:var(--chip);
+            border:1px solid rgba(255,255,255,.06);
+            color:var(--text);
+            font-size:13px;
+        }
+        .chip select{
+            border:0;
+            outline:0;
+            background:transparent;
+            color:var(--text);
+            font-size:13px;
+            appearance:none;
+        }
+
+        h1{
+            margin:10px 4px 14px;
+            font-size:40px;
+            letter-spacing:.2px;
+        }
+
+        .grid{
+            display:grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap:18px;
+            padding:0 4px;
+        }
+
+        @media (max-width: 1500px){
+            .grid{grid-template-columns: repeat(5, minmax(0, 1fr));}
+        }
+        @media (max-width: 1300px){
+            .grid{grid-template-columns: repeat(4, minmax(0, 1fr));}
+        }
+        @media (max-width: 1050px){
+            .app{grid-template-columns: 86px 1fr;}
+            .yttext{display:none}
+            .nav span{display:none}
+            .grid{grid-template-columns: repeat(3, minmax(0, 1fr));}
+        }
+        @media (max-width: 820px){
+            .grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
+            h1{font-size:34px}
+        }
+
+        .card{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            cursor:pointer;
+        }
+
+        .thumb{
+            position:relative;
+            aspect-ratio: 16 / 9;
+            border-radius:14px;
+            overflow:hidden;
+            background: rgba(255,255,255,.06);
+            border:1px solid rgba(255,255,255,.06);
+            box-shadow: 0 0 0 rgba(0,0,0,0);
+            transition: transform .14s ease, box-shadow .14s ease;
+        }
+        .thumb img{
+            width:100%; height:100%;
+            object-fit:cover;
+            display:block;
+            filter:saturate(1.02) contrast(1.02);
+        }
+
+        .thumb-fallback{
+            width:100%; height:100%;
+            display:grid;
+            place-items:center;
+            background: radial-gradient(1200px 500px at 20% 10%, rgba(255,255,255,.10), transparent 60%),
+            radial-gradient(900px 500px at 80% 60%, rgba(255,255,255,.07), transparent 55%),
+            rgba(255,255,255,.05);
+            color: rgba(255,255,255,.72);
+            font-size: 14px;
+            gap: 8px;
+        }
+        .tf-icon{
+            width:44px;height:44px;
+            border-radius: 16px;
+            display:grid;
+            place-items:center;
+            background: rgba(0,0,0,.55);
+            border: 1px solid rgba(255,255,255,.10);
+            font-size: 18px;
+        }
+        .tf-text{opacity:.85}
+
+        .card:hover .thumb{
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+        }
+
+        .duration{
+            position:absolute;
+            left:10px;
+            bottom:10px;
+            background: rgba(0,0,0,.72);
+            border:1px solid rgba(255,255,255,.10);
+            padding:4px 7px;
+            border-radius:8px;
+            font-size:12px;
+            letter-spacing:.2px;
+        }
+
+        .more{
+            position:absolute;
+            right:10px;
+            bottom:10px;
+            width:30px;height:30px;
+            border-radius:10px;
+            display:grid;
+            place-items:center;
+            background: rgba(0,0,0,.0);
+            transition: background .14s ease;
+        }
+        .card:hover .more{background: rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.10)}
+        .kebab{
+            width:4px;height:18px;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .kebab i{
+            display:block;
+            width:4px;height:4px;
+            border-radius:999px;
+            background: rgba(255,255,255,.86);
+        }
+
+        .meta{
+            display:grid;
+            grid-template-columns: 1fr auto;
+            gap:10px;
+            align-items:start;
+            padding-right:4px;
+        }
+
+        .title{
+            font-size:14px;
+            line-height:1.25;
+            font-weight:600;
+            display:-webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow:hidden;
+            min-height: 35px;
+        }
+
+        .sub{
+            margin-top:4px;
+            font-size:12px;
+            color:var(--muted);
+            display:flex;
+            flex-direction:column;
+            gap:2px;
+        }
+
+        .sub a{color:var(--muted)}
+        .sub a:hover{color:var(--text)}
+
+        .line{
+            display:flex;
+            gap:8px;
+            color:var(--muted2);
+        }
+
+        .empty{
+            margin:24px 4px;
+            padding:18px 16px;
+            border:1px dashed rgba(255,255,255,.14);
+            border-radius:16px;
+            color:var(--muted);
+            max-width:860px;
+        }
+
+        .footer{
+            margin-top:22px;
+            color:var(--muted2);
+            font-size:12px;
+            padding:0 4px;
+        }
+
+        .kbd{
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size:12px;
+            background: rgba(255,255,255,.06);
+            border:1px solid rgba(255,255,255,.08);
+            padding:2px 6px;
+            border-radius:8px;
+            color:var(--text);
+            opacity:.9;
+        }
+    </style>
 </head>
 <body>
-<div class="cookies application_token"></div>
+<div class="app">
+    <aside class="sidebar">
+        <div class="ytmark">
+            <div class="logo" aria-hidden="true"></div>
+            <div class="yttext">YouTube</div>
+        </div>
+        <nav class="nav" aria-label="Sidebar">
+            <a href="#" title="Home"><span class="dot" aria-hidden="true"></span><span>Home</span></a>
+            <a href="#" title="Shorts"><span class="dot" aria-hidden="true"></span><span>Shorts</span></a>
+            <a href="#" title="Subscriptions"><span class="dot" aria-hidden="true"></span><span>Subscriptions</span></a>
+            <a href="#" title="You"><span class="dot" aria-hidden="true"></span><span>You</span></a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <div class="topbar">
+            <div style="width:28px; height:28px; border-radius:10px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);"></div>
+            <div class="search" role="search">
+                <span style="opacity:.75">🔍</span>
+                <input id="q" type="search" placeholder="Search" autocomplete="off" />
+            </div>
+            <div class="chip" title="Sort">
+                <span style="opacity:.85">☰</span>
+                <select id="sort">
+                    <option value="newest">Sort: Newest</option>
+                    <option value="oldest">Sort: Oldest</option>
+                    <option value="views">Sort: Views</option>
+                    <option value="title">Sort: Title</option>
+                    <option value="channel">Sort: Channel</option>
+                </select>
+            </div>
+        </div>
+
+        <h1>Clips</h1>
+
+        <div id="empty" class="empty" hidden>
+            <div style="font-weight:700; color:var(--text); margin-bottom:8px;">Add your clips</div>
+            <div>
+                Paste your clip list into the <span class="kbd">clips</span> array in the script at the bottom.
+                Each entry is one card.
+            </div>
+        </div>
+
+        <section id="grid" class="grid" aria-label="Clips grid"></section>
+
+        <div class="footer">
+            Tip: use <span class="kbd">Ctrl/⌘ + F</span> in addition to the search box.
+        </div>
+    </main>
+</div>
+
+<script>
+    // Replace this with your own data.
+    // Minimal required fields: url, title.
+    // Optional: thumb, channel, channelUrl, duration (e.g. 0:07), views (number), clippedAgo (string), clippedAt (ISO date string).
+    let clips = [
+        { url: "https://www.youtube.com/clip/UgkxvS3FQzdB5nY1v8L3YPgcwdoY8DKS46iy", title: "Clip 01" },
+        { url: "https://www.youtube.com/clip/UgkxHNcoQiEWVlsOO_wTcLpTQ9AuUank8E1H", title: "Clip 02" },
+        { url: "https://www.youtube.com/clip/UgkxXqcNCgmQq-5M4K5L8cELdBSAXMfM5gyJ", title: "Clip 03" },
+        { url: "https://www.youtube.com/clip/Ugkxh_bgPh_9Gs4OoD3zYq_ka4lCMaZ2m1Ef", title: "Clip 04" },
+        { url: "https://www.youtube.com/clip/UgkxPEa-E1hovcC4EhEWDdH4NPnosIGdojlT", title: "Clip 05" },
+        { url: "https://www.youtube.com/clip/UgkxgtpenCvuTzu70raoSHbL5aaefGfnGVqi", title: "Clip 06" },
+        { url: "https://www.youtube.com/clip/UgkxOUSUHNEYwO_VtTcqZBDqodTYZwxGkuIx", title: "Clip 07" },
+        { url: "https://www.youtube.com/clip/UgkxNQWkoLrt0OW9XFeG5Ho7t7e_dXOrbQoW", title: "Clip 08" },
+        { url: "https://www.youtube.com/clip/UgkxGlV5k71pR5iqyCRVo_-DBJ9F_3zR0Yrp", title: "Clip 09" },
+        { url: "https://www.youtube.com/clip/UgkxOnc_0D4NgLAGVxJvQ6WXCwWPmSotptbH", title: "Clip 10" },
+        { url: "https://www.youtube.com/clip/UgkxTBYaaDCZELiH7Lo88w8xpqG268SYAvQM", title: "Clip 11" },
+        { url: "https://www.youtube.com/clip/UgkxkecfslQqLPuwuifhlHXOKFSiQcowd0hv", title: "Clip 12" },
+        { url: "https://www.youtube.com/clip/Ugkxu2XXHUXl4BDHbmsbtxksXN_w5F7YDk-M", title: "Clip 13" },
+        { url: "https://www.youtube.com/clip/UgkxAPWR9EJzjeKtCb6KF4V8DdKL7glrCDGI", title: "Clip 14" }
+    ];
+
+    const els = {
+        grid: document.getElementById('grid'),
+        empty: document.getElementById('empty'),
+        q: document.getElementById('q'),
+        sort: document.getElementById('sort'),
+    };
+
+    function fmtViews(n){
+        if (n == null || Number.isNaN(Number(n))) return "";
+        const x = Number(n);
+        if (x < 1000) return `${x} view${x===1?"":"s"}`;
+        if (x < 1_000_000) return `${(x/1000).toFixed(x%1000===0?0:1)}K views`;
+        return `${(x/1_000_000).toFixed(x%1_000_000===0?0:1)}M views`;
+    }
+
+    function cardHtml(c){
+        const duration = c.duration ? `<div class="duration">${escapeHtml(c.duration)}</div>` : "";
+        const thumb = c.thumb
+            ? `<img loading="lazy" referrerpolicy="no-referrer" src="${escapeAttr(c.thumb)}" alt="" onerror="this.replaceWith(makeThumbFallback())" />`
+            : makeThumbFallbackHtml();
+        const channel = c.channel ? `<a href="${escapeAttr(c.channelUrl || '#')}" target="_blank" rel="noreferrer">${escapeHtml(c.channel)}</a>` : "";
+        const views = c.views != null ? fmtViews(c.views) : "";
+        const clippedAgo = c.clippedAgo ? c.clippedAgo : (c.clippedAt ? `Clipped ${new Date(c.clippedAt).toLocaleDateString()}` : "");
+
+        const line2Parts = [views, clippedAgo].filter(Boolean);
+        const line2 = line2Parts.length ? `<div class="line">${line2Parts.map(escapeHtml).join(' • ')}</div>` : "";
+
+        return `
+        <a class="card" href="${escapeAttr(c.url)}" target="_blank" rel="noreferrer">
+          <div class="thumb">
+            ${thumb}
+            ${duration}
+            <div class="more" aria-label="More">
+              <div class="kebab" aria-hidden="true"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="meta">
+            <div>
+              <div class="title" title="${escapeAttr(c.title || '')}">${escapeHtml(c.title || '')}</div>
+              <div class="sub">
+                ${channel}
+                ${line2}
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+    }
+
+    function makeThumbFallbackHtml(){
+        return `<div class="thumb-fallback"><div class="tf-icon">▶</div><div class="tf-text">No thumbnail</div></div>`;
+    }
+
+    function makeThumbFallback(){
+        const d = document.createElement('div');
+        d.className = 'thumb-fallback';
+        const icon = document.createElement('div');
+        icon.className = 'tf-icon';
+        icon.textContent = '▶';
+        const text = document.createElement('div');
+        text.className = 'tf-text';
+        text.textContent = 'No thumbnail';
+        d.append(icon, text);
+        return d;
+    }
+
+    function escapeHtml(s){
+
+        return String(s)
+            .replaceAll('&','&amp;')
+            .replaceAll('<','&lt;')
+            .replaceAll('>','&gt;')
+            .replaceAll('"','&quot;')
+            .replaceAll("'",'&#039;');
+    }
+    function escapeAttr(s){
+        return escapeHtml(s).replaceAll('`','&#096;');
+    }
+
+    function normalize(c){
+        return {
+            ...c,
+            _title: (c.title || "").toLowerCase(),
+            _channel: (c.channel || "").toLowerCase(),
+            _views: Number(c.views || 0),
+            _time: c.clippedAt ? Date.parse(c.clippedAt) : NaN,
+        };
+    }
+
+    function applySort(list, mode){
+        const a = [...list];
+        switch(mode){
+            case 'oldest':
+                a.sort((x,y)=> (isNaN(x._time)?Infinity:x._time) - (isNaN(y._time)?Infinity:y._time));
+                return a;
+            case 'views':
+                a.sort((x,y)=> (y._views - x._views));
+                return a;
+            case 'title':
+                a.sort((x,y)=> x._title.localeCompare(y._title));
+                return a;
+            case 'channel':
+                a.sort((x,y)=> x._channel.localeCompare(y._channel));
+                return a;
+            case 'newest':
+            default:
+                a.sort((x,y)=> (isNaN(y._time)?-Infinity:y._time) - (isNaN(x._time)?-Infinity:x._time));
+                return a;
+        }
+    }
+
+    async function loadClipsJson(){
+        // If you place a clips.json next to this HTML, it will override/enrich the inline list.
+        // This is the recommended way to get real titles/thumbnails without editing HTML.
+        // Expected shape: [{ url, title, thumb, channel, channelUrl, duration, views, clippedAgo, clippedAt }, ...]
+        try{
+            const res = await fetch('./clips.json', { cache: 'no-store' });
+            if (!res.ok) return;
+            const data = await res.json();
+            if (!Array.isArray(data) || !data.length) return;
+
+            const byUrl = new Map(clips.map(c => [c.url, c]));
+            for (const item of data){
+                if (!item?.url) continue;
+                const existing = byUrl.get(item.url) || { url: item.url };
+                byUrl.set(item.url, { ...existing, ...item });
+            }
+            clips = Array.from(byUrl.values());
+        }catch(_e){
+            // ignore
+        }
+    }
+
+    function render(){
+
+        const q = (els.q.value || "").trim().toLowerCase();
+        const mode = els.sort.value;
+
+        const base = clips.map(normalize);
+        const filtered = q
+            ? base.filter(c => (c._title.includes(q) || c._channel.includes(q)))
+            : base;
+
+        const sorted = applySort(filtered, mode);
+
+        els.grid.innerHTML = sorted.map(cardHtml).join('');
+        els.empty.hidden = (clips.length !== 0);
+    }
+
+    els.q.addEventListener('input', render);
+    els.sort.addEventListener('change', render);
+
+    render();
+    loadClipsJson().then(render);
+
+</script>
 </body>
 </html>
