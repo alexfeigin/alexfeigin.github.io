@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="he" dir="rtl" data-astro-cid-cdozx7h2><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta property="og:type" content="website"><meta property="og:site_name" content="Recipe-Grams"><meta property="og:locale" content="he_IL"><meta property="og:url" content="https://alexfeigin.github.io/recipe-grams/he/poolish/"><meta property="og:title" content="מחשבון פוליש | Recipe-Grams"><meta property="og:description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta property="og:image" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta property="og:image:secure_url" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta property="og:image:alt" content="בצק פיצה"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="מחשבון פוליש | Recipe-Grams"><meta name="twitter:description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta name="twitter:image" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta name="twitter:image:alt" content="בצק פיצה"><link rel="canonical" href="https://alexfeigin.github.io/recipe-grams/he/poolish/"><meta name="robots" content="noindex"><link rel="icon" href="/recipe-grams/favicon.ico" sizes="any"><meta name="theme-color" content="#b43e2f"><title>מחשבון פוליש | Recipe-Grams</title><link rel="stylesheet" href="/recipe-grams/_astro/SocialMeta.CZBuH1u1.css"><link rel="stylesheet" href="/recipe-grams/_astro/PoolishCalculatorPage.Bs5CAgHa.css"></head><body data-astro-cid-cdozx7h2><!--
+      THESIS: Poolish opens as a working kitchen calculator, refusing a generic recipe article or promotional tool page.
+      OWN-WORLD: warm kitchen paper, tomato action states, olive mode controls, steel table rules, compact measurement panels.
+      STORY: cooks switch between the generic dough formula and the house pizza preset, adjust grams, and copy phase weights.
+      FIRST VIEWPORT: Recipe-Grams header sits above a focused calculator with controls on the left and live poolish/final dough results on the right.
+      FORM: hidden operate surface for the repo poolish shell logic; seed key: poolish-calc-existing-world.
+      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+    --><header class="site-header" data-astro-cid-fzpbxy5g><a class="brand" href="/recipe-grams/he/" aria-label="עמוד הבית של Recipe-Grams" data-astro-cid-fzpbxy5g><img class="brand-mark" src="/recipe-grams/recipe-grams-logo.png" alt="" width="46" height="46" decoding="async" aria-hidden="true" data-astro-cid-fzpbxy5g><span data-astro-cid-fzpbxy5g><strong data-astro-cid-fzpbxy5g>Recipe-Grams</strong><small data-astro-cid-fzpbxy5g>מחשבון פוליש</small></span></a><input class="nav-toggle" type="checkbox" id="nav-toggle" data-astro-cid-fzpbxy5g><nav class="nav-panel" aria-label="ניווט ראשי" dir="rtl" data-astro-cid-fzpbxy5g><a href="/recipe-grams/he/" data-astro-cid-fzpbxy5g>עמוד הבית</a></nav><label class="search-control" data-astro-cid-fzpbxy5g><input class="search-input" type="search" autocomplete="off" spellcheck="false" aria-label="חיפוש" aria-controls="search-results-panel" placeholder="חיפוש" data-search-input data-astro-cid-fzpbxy5g></label><div class="language-picker desktop-language-picker" aria-label="בחירת שפה" data-astro-cid-fzpbxy5g><span aria-current="page" data-astro-cid-fzpbxy5g>עב</span><a href="/recipe-grams/poolish/" data-astro-cid-fzpbxy5g>EN</a></div><div class="mobile-actions" data-astro-cid-fzpbxy5g><div class="language-picker" aria-label="בחירת שפה" data-astro-cid-fzpbxy5g><span aria-current="page" data-astro-cid-fzpbxy5g>עב</span><a href="/recipe-grams/poolish/" data-astro-cid-fzpbxy5g>EN</a></div><label class="menu-button" for="nav-toggle" aria-label="פתיחת ניווט" data-astro-cid-fzpbxy5g><span data-astro-cid-fzpbxy5g></span><span data-astro-cid-fzpbxy5g></span><span data-astro-cid-fzpbxy5g></span></label></div><script>
+    const navToggle = document.getElementById("nav-toggle");
+
+    if (navToggle instanceof HTMLInputElement) {
+      if (window.location.hash === "#nav-open") {
+        navToggle.checked = true;
+      }
+
+      document
+        .querySelector(".nav-panel")
+        ?.addEventListener("click", (event) => {
+          if (event.target instanceof Element && event.target.closest("a")) {
+            navToggle.checked = false;
+          }
+        });
+    }
+  </script></header><div class="search-overlay" data-search-overlay hidden role="dialog" aria-modal="true" aria-labelledby="search-title" dir="rtl" data-astro-cid-fzpbxy5g><div class="search-panel" id="search-results-panel" data-astro-cid-fzpbxy5g><div class="search-header" data-astro-cid-fzpbxy5g><h2 id="search-title" data-astro-cid-fzpbxy5g>תוצאות חיפוש</h2><button class="search-close" type="button" data-search-close data-astro-cid-fzpbxy5g>סגירת חיפוש</button></div><p class="search-status" data-search-status data-astro-cid-fzpbxy5g></p><div class="search-results" data-search-results aria-label="תוצאות חיפוש" data-astro-cid-fzpbxy5g></div></div></div><script>(function(){const language = "he";
+const pagefindBundle = "/recipe-grams/pagefind/pagefind.js";
+const searchLabels = {"button":"חיפוש","close":"סגירת חיפוש","empty":"לא נמצאו מתכונים","loading":"מחפש","placeholder":"חיפוש","resultsLabel":"תוצאות חיפוש","title":"חיפוש מתכונים","waiting":"הקלידו לפחות 2 תווים"};
+const basePath = "/recipe-grams";
+
+  const overlay = document.querySelector("[data-search-overlay]");
+  const input = document.querySelector("[data-search-input]");
+  const status = document.querySelector("[data-search-status]");
+  const results = document.querySelector("[data-search-results]");
+  const closeButton = document.querySelector("[data-search-close]");
+  let pagefindPromise;
+  let lastSearchId = 0;
+
+  function normalizeResultUrl(url) {
+    const normalizedBase = basePath.endsWith("/") ? basePath : `${basePath}/`;
+    if (url.startsWith(normalizedBase)) {
+      return url;
+    }
+    return `${normalizedBase}${url.replace(/^\/+/, "")}`;
+  }
+
+  async function getPagefind() {
+    pagefindPromise ??= import(pagefindBundle).then((pagefind) => {
+      pagefind.init?.();
+      return pagefind;
+    });
+    return pagefindPromise;
+  }
+
+  function showResultsLayer() {
+    overlay.hidden = false;
+  }
+
+  function closeResultsLayer(restoreFocus = true) {
+    overlay.hidden = true;
+    if (restoreFocus) {
+      input.focus();
+    }
+  }
+
+  function clearResults(message) {
+    results.replaceChildren();
+    status.textContent = message;
+  }
+
+  function renderResults(searchResults) {
+    results.replaceChildren();
+
+    for (const result of searchResults) {
+      const link = document.createElement("a");
+      link.className = "search-result";
+      link.href = normalizeResultUrl(result.url);
+
+      const title = document.createElement("strong");
+      title.textContent = result.meta.title ?? link.href;
+      link.append(title);
+
+      const details = [result.meta.category, result.meta.markers]
+        .filter(Boolean)
+        .join(" | ");
+      if (details) {
+        const meta = document.createElement("span");
+        meta.className = "search-result-meta";
+        meta.textContent = details;
+        link.append(meta);
+      }
+
+      const excerpt = document.createElement("span");
+      excerpt.className = "search-result-excerpt";
+      excerpt.innerHTML = result.excerpt;
+      link.append(excerpt);
+
+      results.append(link);
+    }
+  }
+
+  async function runSearch() {
+    const query = input.value.trim();
+    const searchId = ++lastSearchId;
+
+    if (query.length < 2) {
+      overlay.hidden = true;
+      clearResults(searchLabels.waiting);
+      return;
+    }
+
+    showResultsLayer();
+    status.textContent = searchLabels.loading;
+    const pagefind = await getPagefind();
+    const search = await pagefind.search(query, {
+      filters: { language },
+    });
+    const searchResults = await Promise.all(
+      search.results.slice(0, 8).map((result) => result.data()),
+    );
+
+    if (searchId !== lastSearchId) {
+      return;
+    }
+
+    if (searchResults.length === 0) {
+      clearResults(searchLabels.empty);
+      return;
+    }
+
+    status.textContent = "";
+    renderResults(searchResults);
+  }
+
+  input.addEventListener("focus", () => {
+    getPagefind().catch(() => {
+      status.textContent = searchLabels.empty;
+    });
+  });
+  closeButton.addEventListener("click", () => {
+    closeResultsLayer();
+  });
+  overlay.addEventListener("click", (event) => {
+    if (
+      event.target instanceof Element &&
+      !event.target.closest(".search-panel")
+    ) {
+      closeResultsLayer(false);
+    }
+  });
+  input.addEventListener("input", () => {
+    runSearch().catch(() => {
+      clearResults(searchLabels.empty);
+    });
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !overlay.hidden) {
+      closeResultsLayer();
+    }
+  });
+})();</script><main class="calculator-shell" data-astro-cid-cdozx7h2><section class="tool-intro" aria-labelledby="page-title" data-astro-cid-cdozx7h2><div data-astro-cid-cdozx7h2><h1 id="page-title" data-astro-cid-cdozx7h2>מחשבון פוליש</h1><p data-astro-cid-cdozx7h2>התאימו נוסחת בצק פוליש בגרמים, או עברו לפריסט הפיצה כשצריך את יחס הפוליש הביתי.</p></div></section><section class="calculator-grid" aria-label="מחשבון פוליש" data-astro-cid-cdozx7h2><form class="input-panel" data-calculator-form data-astro-cid-cdozx7h2><fieldset class="mode-switch" data-astro-cid-cdozx7h2><legend data-astro-cid-cdozx7h2>מצב מחשבון</legend><label data-astro-cid-cdozx7h2><input type="radio" name="mode" value="generic" checked data-mode-input data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>כללי</span></label><label data-astro-cid-cdozx7h2><input type="radio" name="mode" value="pizza" data-mode-input data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>פריסט פיצה</span></label></fieldset><div class="pizza-controls" data-pizza-controls hidden data-astro-cid-cdozx7h2><label data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>מספר פיצות</span><input type="number" min="1" step="1" value="3" inputmode="numeric" data-field="pizzaCount" data-astro-cid-cdozx7h2></label><p data-astro-cid-cdozx7h2>מצב פיצה משתמש בערך ב- <strong data-astro-cid-cdozx7h2>283 גרם בצק לכל פיצה</strong>. שלוש פיצות הן מנה של 850 גרם.</p></div><div class="field-grid" data-generic-controls data-astro-cid-cdozx7h2><label data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>כמות בצק רצויה</span><input type="number" min="1" step="1" value="1700" inputmode="decimal" data-field="desiredDough" data-astro-cid-cdozx7h2></label><label data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>הידרציה</span><input type="number" min="0" step="0.01" value="0.70" inputmode="decimal" data-field="hydration" data-astro-cid-cdozx7h2></label><label data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>חלק הפוליש</span><input type="number" min="0" max="1" step="0.01" value="0.667" inputmode="decimal" data-field="poolishShare" data-astro-cid-cdozx7h2></label><label data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>הידרציית פוליש</span><input type="number" min="0" step="0.01" value="1.00" inputmode="decimal" data-field="poolishHydration" data-astro-cid-cdozx7h2></label><label data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>שמרים בפוליש</span><input type="number" min="0" step="0.001" value="0.013" inputmode="decimal" data-field="poolishYeast" data-astro-cid-cdozx7h2></label><label data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>שמרים בבצק הסופי</span><input type="number" min="0" step="0.001" value="0" inputmode="decimal" data-field="restYeast" data-astro-cid-cdozx7h2></label><label data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>מלח</span><input type="number" min="0" step="0.001" value="0.027" inputmode="decimal" data-field="salt" data-astro-cid-cdozx7h2></label></div><dl class="preset-list" data-preset-list hidden data-astro-cid-cdozx7h2><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>הידרציה</dt><dd data-astro-cid-cdozx7h2>70%</dd></div><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>חלק הפוליש</dt><dd data-astro-cid-cdozx7h2>2/3 מהקמח</dd></div><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>שמרים בפוליש</dt><dd data-astro-cid-cdozx7h2>1.3% מקמח הפוליש, מינימום 3 גרם</dd></div><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>מלח</dt><dd data-astro-cid-cdozx7h2>2.7% מסך הקמח</dd></div></dl></form><section class="results-panel" aria-live="polite" data-astro-cid-cdozx7h2><div class="result-summary" data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>סך הקמח</span><strong data-output="totalFlour" data-astro-cid-cdozx7h2>0 גרם</strong></div><div class="result-summary" data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>סך המים</span><strong data-output="totalWater" data-astro-cid-cdozx7h2>0 גרם</strong></div><div class="result-summary" data-astro-cid-cdozx7h2><span data-astro-cid-cdozx7h2>בסיס הבצק</span><strong data-output="targetDough" data-astro-cid-cdozx7h2>0 גרם</strong></div><div class="phase-grid" data-astro-cid-cdozx7h2><article data-astro-cid-cdozx7h2><h2 data-astro-cid-cdozx7h2>פוליש</h2><dl data-astro-cid-cdozx7h2><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>קמח</dt><dd data-output="poolishFlour" data-astro-cid-cdozx7h2>0 גרם</dd></div><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>מים</dt><dd data-output="poolishWater" data-astro-cid-cdozx7h2>0 גרם</dd></div><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>שמרים</dt><dd data-output="poolishYeast" data-astro-cid-cdozx7h2>0 גרם</dd></div></dl></article><article data-astro-cid-cdozx7h2><h2 data-astro-cid-cdozx7h2>בצק סופי</h2><dl data-astro-cid-cdozx7h2><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>קמח</dt><dd data-output="restFlour" data-astro-cid-cdozx7h2>0 גרם</dd></div><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>מים</dt><dd data-output="restWater" data-astro-cid-cdozx7h2>0 גרם</dd></div><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>שמרים</dt><dd data-output="restYeast" data-astro-cid-cdozx7h2>0 גרם</dd></div><div data-astro-cid-cdozx7h2><dt data-astro-cid-cdozx7h2>מלח</dt><dd data-output="salt" data-astro-cid-cdozx7h2>0 גרם</dd></div></dl></article></div><button class="copy-button" type="button" data-copy-button data-astro-cid-cdozx7h2>העתקת כמויות</button><p class="copy-status" data-copy-status aria-live="polite" data-astro-cid-cdozx7h2></p><p class="validation-message" data-validation-message data-astro-cid-cdozx7h2></p></section></section></main><script>(function(){const alternateLanguageHref = "/recipe-grams/poolish/";
+const clientLabels = {"copied":"הועתק","copyFailed":"ההעתקה נכשלה","validationMessage":"השתמשו במספרים חיוביים. חלק הפוליש חייב להיות בין 0 ל-1.","gramUnit":" גרם","copyText":{"poolish":"פוליש:","finalDough":"בצק סופי:","flour":"קמח","water":"מים","yeast":"שמרים","salt":"מלח"}};
+
+      const form = document.querySelector("[data-calculator-form]");
+      const genericControls = document.querySelector("[data-generic-controls]");
+      const pizzaControls = document.querySelector("[data-pizza-controls]");
+      const presetList = document.querySelector("[data-preset-list]");
+      const validationMessage = document.querySelector(
+        "[data-validation-message]",
+      );
+      const copyButton = document.querySelector("[data-copy-button]");
+      const copyStatus = document.querySelector("[data-copy-status]");
+      const outputs = Object.fromEntries(
+        Array.from(document.querySelectorAll("[data-output]")).map(
+          (element) => [element.dataset.output, element],
+        ),
+      );
+
+      const pizzaPreset = {
+        hydration: 0.7,
+        poolishShare: 2 / 3,
+        poolishHydration: 1,
+        poolishYeast: 0.013,
+        restYeast: 0,
+        salt: 0.027,
+      };
+
+      function fieldValue(name) {
+        const field = form?.querySelector(`[data-field="${name}"]`);
+        if (!(field instanceof HTMLInputElement)) {
+          return Number.NaN;
+        }
+        return Number(field.value);
+      }
+
+      function currentMode() {
+        const selected = form?.querySelector('input[name="mode"]:checked');
+        return selected instanceof HTMLInputElement
+          ? selected.value
+          : "generic";
+      }
+
+      function setMode(mode) {
+        const modeInput = form?.querySelector(
+          `input[name="mode"][value="${mode}"]`,
+        );
+        if (modeInput instanceof HTMLInputElement) {
+          modeInput.checked = true;
+        }
+      }
+
+      function applyUrlMode() {
+        const mode = new URLSearchParams(window.location.search).get("mode");
+        if (mode === "pizza" || mode === "generic") {
+          setMode(mode);
+        }
+      }
+
+      function syncUrlMode() {
+        const mode = currentMode();
+        const url = new URL(window.location.href);
+        url.searchParams.set("mode", mode);
+        window.history.replaceState({}, "", url);
+      }
+
+      function syncAlternateLanguageHref() {
+        const mode = new URLSearchParams(window.location.search).get("mode");
+        const alternateUrl = new URL(
+          alternateLanguageHref,
+          window.location.origin,
+        );
+
+        if (mode === "pizza" || mode === "generic") {
+          alternateUrl.searchParams.set("mode", mode);
+        }
+
+        for (const link of document.querySelectorAll("a")) {
+          if (
+            link instanceof HTMLAnchorElement &&
+            new URL(link.href).pathname === alternateUrl.pathname
+          ) {
+            link.href = `${alternateUrl.pathname}${alternateUrl.search}`;
+          }
+        }
+      }
+
+      function grams(value, digits = 0) {
+        return `${value.toFixed(digits)}${clientLabels.gramUnit}`;
+      }
+
+      function getInputs() {
+        if (currentMode() === "pizza") {
+          const pizzaCount = fieldValue("pizzaCount");
+          return {
+            desiredDough: Math.round((850 / 3) * pizzaCount),
+            ...pizzaPreset,
+          };
+        }
+
+        return {
+          desiredDough: fieldValue("desiredDough"),
+          hydration: fieldValue("hydration"),
+          poolishShare: fieldValue("poolishShare"),
+          poolishHydration: fieldValue("poolishHydration"),
+          poolishYeast: fieldValue("poolishYeast"),
+          restYeast: fieldValue("restYeast"),
+          salt: fieldValue("salt"),
+        };
+      }
+
+      function calculateRecipe(inputs) {
+        const totalFlour = Math.round(
+          inputs.desiredDough / (1 + inputs.hydration),
+        );
+        const totalWater = Math.round(inputs.desiredDough - totalFlour);
+        const poolishFlour = Math.round(totalFlour * inputs.poolishShare);
+        const poolishWater = Math.round(poolishFlour * inputs.poolishHydration);
+        const poolishYeast = Math.max(
+          Math.round(poolishFlour * inputs.poolishYeast),
+          3,
+        );
+        const restFlour = Math.round(totalFlour - poolishFlour);
+        const restWater = Math.round(totalWater - poolishWater);
+        const restYeast = Math.round(totalFlour * inputs.restYeast);
+        const salt = Number((totalFlour * inputs.salt).toFixed(1));
+
+        return {
+          targetDough: inputs.desiredDough,
+          totalFlour,
+          totalWater,
+          poolishFlour,
+          poolishWater,
+          poolishYeast,
+          restFlour,
+          restWater,
+          restYeast,
+          salt,
+        };
+      }
+
+      function updateModeVisibility() {
+        const isPizza = currentMode() === "pizza";
+        if (genericControls instanceof HTMLElement) {
+          genericControls.hidden = isPizza;
+        }
+        if (pizzaControls instanceof HTMLElement) {
+          pizzaControls.hidden = !isPizza;
+        }
+        if (presetList instanceof HTMLElement) {
+          presetList.hidden = !isPizza;
+        }
+      }
+
+      function render() {
+        updateModeVisibility();
+        const inputs = getInputs();
+        const inputValues = Object.values(inputs);
+
+        if (
+          inputValues.some((value) => !Number.isFinite(value)) ||
+          inputs.desiredDough <= 0 ||
+          inputs.hydration < 0 ||
+          inputs.poolishShare < 0 ||
+          inputs.poolishShare > 1 ||
+          inputs.poolishHydration < 0
+        ) {
+          validationMessage.textContent = clientLabels.validationMessage;
+          return;
+        }
+
+        const result = calculateRecipe(inputs);
+        outputs.totalFlour.textContent = grams(result.totalFlour);
+        outputs.totalWater.textContent = grams(result.totalWater);
+        outputs.targetDough.textContent = grams(result.targetDough);
+        outputs.poolishFlour.textContent = grams(result.poolishFlour);
+        outputs.poolishWater.textContent = grams(result.poolishWater);
+        outputs.poolishYeast.textContent = grams(result.poolishYeast);
+        outputs.restFlour.textContent = grams(result.restFlour);
+        outputs.restWater.textContent = grams(result.restWater);
+        outputs.restYeast.textContent = grams(result.restYeast);
+        outputs.salt.textContent = grams(result.salt, 1);
+        validationMessage.textContent = "";
+      }
+
+      function copyWeights() {
+        const text = [
+          clientLabels.copyText.poolish,
+          `${clientLabels.copyText.flour}: ${outputs.poolishFlour.textContent}`,
+          `${clientLabels.copyText.water}: ${outputs.poolishWater.textContent}`,
+          `${clientLabels.copyText.yeast}: ${outputs.poolishYeast.textContent}`,
+          "",
+          clientLabels.copyText.finalDough,
+          `${clientLabels.copyText.flour}: ${outputs.restFlour.textContent}`,
+          `${clientLabels.copyText.water}: ${outputs.restWater.textContent}`,
+          `${clientLabels.copyText.yeast}: ${outputs.restYeast.textContent}`,
+          `${clientLabels.copyText.salt}: ${outputs.salt.textContent}`,
+        ].join("\n");
+
+        navigator.clipboard
+          ?.writeText(text)
+          .then(() => {
+            copyStatus.textContent = clientLabels.copied;
+          })
+          .catch(() => {
+            copyStatus.textContent = clientLabels.copyFailed;
+          });
+      }
+
+      form?.addEventListener("input", render);
+      form?.addEventListener("change", () => {
+        syncUrlMode();
+        syncAlternateLanguageHref();
+        render();
+      });
+      copyButton?.addEventListener("click", copyWeights);
+      applyUrlMode();
+      syncAlternateLanguageHref();
+      render();
+    })();</script></body></html>
