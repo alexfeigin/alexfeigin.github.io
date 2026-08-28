@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="he" dir="rtl" data-astro-cid-cdozx7h2><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta property="og:type" content="website"><meta property="og:site_name" content="Recipe-Grams"><meta property="og:locale" content="he_IL"><meta property="og:url" content="https://alexfeigin.github.io/recipe-grams/he/poolish/"><meta property="og:title" content="מחשבון פוליש | Recipe-Grams"><meta property="og:description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta property="og:image" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta property="og:image:secure_url" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta property="og:image:alt" content="בצק פיצה"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="מחשבון פוליש | Recipe-Grams"><meta name="twitter:description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta name="twitter:image" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta name="twitter:image:alt" content="בצק פיצה"><link rel="canonical" href="https://alexfeigin.github.io/recipe-grams/he/poolish/"><meta name="robots" content="noindex"><link rel="icon" href="/recipe-grams/favicon.ico" sizes="any"><meta name="theme-color" content="#b43e2f"><title>מחשבון פוליש | Recipe-Grams</title><link rel="stylesheet" href="/recipe-grams/_astro/design-tokens.C6OWSbyG.css"><link rel="stylesheet" href="/recipe-grams/_astro/PoolishCalculatorPage.B_UPXzJw.css"></head><body data-astro-cid-cdozx7h2><!--
+<!DOCTYPE html><html lang="he" dir="rtl" data-astro-cid-cdozx7h2><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta property="og:type" content="website"><meta property="og:site_name" content="Recipe-Grams"><meta property="og:locale" content="he_IL"><meta property="og:url" content="https://alexfeigin.github.io/recipe-grams/he/poolish/"><meta property="og:title" content="מחשבון פוליש | Recipe-Grams"><meta property="og:description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta property="og:image" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta property="og:image:secure_url" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta property="og:image:alt" content="בצק פיצה"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="מחשבון פוליש | Recipe-Grams"><meta name="twitter:description" content="מחשבון פוליש נסתר של Recipe-Grams לבצק כללי ולפריסט פיצה ביתי."><meta name="twitter:image" content="https://alexfeigin.github.io/recipe-grams/pizza.jpg"><meta name="twitter:image:alt" content="בצק פיצה"><link rel="canonical" href="https://alexfeigin.github.io/recipe-grams/he/poolish/"><meta name="robots" content="noindex"><link rel="icon" href="/recipe-grams/favicon.ico" sizes="any"><meta name="theme-color" content="#b43e2f"><title>מחשבון פוליש | Recipe-Grams</title><link rel="stylesheet" href="/recipe-grams/_astro/design-tokens.pYBo_rkN.css"><link rel="stylesheet" href="/recipe-grams/_astro/PoolishCalculatorPage.B_UPXzJw.css"></head><body data-astro-cid-cdozx7h2><!--
       THESIS: Poolish opens as a working kitchen calculator, refusing a generic recipe article or promotional tool page.
       OWN-WORLD: warm kitchen paper, tomato action states, olive mode controls, steel table rules, compact measurement panels.
       STORY: cooks switch between the generic dough formula and the house pizza preset, adjust grams, and copy phase weights.
@@ -158,8 +158,40 @@ const basePath = "/recipe-grams";
     }
   });
 
+  const backToTopFadeStart = 140;
+  const backToTopFadeEnd = 720;
+  const backToTopMinimumOpacity = 0.14;
+  let backToTopFrame = 0;
+
   function updateBackToTopVisibility() {
-    backToTop.hidden = window.scrollY < 480;
+    const scrollPosition = window.scrollY;
+
+    if (scrollPosition <= backToTopFadeStart) {
+      backToTop.hidden = true;
+      return;
+    }
+
+    const scrollProgress = Math.min(
+      1,
+      (scrollPosition - backToTopFadeStart) /
+        (backToTopFadeEnd - backToTopFadeStart),
+    );
+    const opacity =
+      backToTopMinimumOpacity + (1 - backToTopMinimumOpacity) * scrollProgress;
+
+    backToTop.style.setProperty("--back-to-top-opacity", opacity.toFixed(3));
+    backToTop.hidden = false;
+  }
+
+  function scheduleBackToTopUpdate() {
+    if (backToTopFrame) {
+      return;
+    }
+
+    backToTopFrame = window.requestAnimationFrame(() => {
+      backToTopFrame = 0;
+      updateBackToTopVisibility();
+    });
   }
 
   backToTop.addEventListener("click", () => {
@@ -177,7 +209,7 @@ const basePath = "/recipe-grams";
     }
   });
 
-  window.addEventListener("scroll", updateBackToTopVisibility, {
+  window.addEventListener("scroll", scheduleBackToTopUpdate, {
     passive: true,
   });
   updateBackToTopVisibility();
