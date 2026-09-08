@@ -1,1 +1,0 @@
-var e=[`en`,`he`];function t(e,t){return`${e.endsWith(`/`)?e:`${e}/`}${t.replace(/^\/+/,``)}`}function n(t){return e.includes(t)}export{t as n,n as t};
